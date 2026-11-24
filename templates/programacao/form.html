@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "_macros.html" import breadcrumb, campo %}
+
+{% block titulo %}{{ 'Editar atividade' if atividade else 'Nova atividade' }}{% endblock %}
+{% block breadcrumb %}
+  {{ breadcrumb([('Organização', url_for('admin.painel')),
+                 ('Programação', url_for('programacao.admin_lista')),
+                 ('Editar atividade' if atividade else 'Nova atividade', None)]) }}
+{% endblock %}
+
+{% block conteudo %}
+  <div class="content-panel mx-auto">
+    <h1 class="h3 fw-bold page-heading">{{ 'Editar atividade' if atividade else 'Nova atividade' }}</h1>
+    <form method="POST" novalidate>
+      {{ form.hidden_tag() }}
+      <div class="row">
+        <div class="col-12 col-md-6">{{ campo(form.dia) }}</div>
+        <div class="col-12 col-md-6">{{ campo(form.horario) }}</div>
+      </div>
+      {{ campo(form.titulo) }}
+      {{ campo(form.local) }}
+      {{ campo(form.descricao, ajuda='Opcional, até 280 caracteres.') }}
+      {{ form.enviar(class='btn btn-primary') }}
+      <a class="btn btn-outline-secondary" href="{{ url_for('programacao.admin_lista') }}">Cancelar</a>
+    </form>
+  </div>
+{% endblock %}
