@@ -1,7 +1,7 @@
 # Parte 2 — Equipes
 
 **Responsável:** _a preencher (uma pessoa)_
-**Branch:** `parte-2-equipes`
+**Branch:** `parte-2-equipes` (toda a parte é feita nesta branch, e só nela)
 
 Página onde dá para ver as equipes inscritas, filtrar por trilha, ver quem está em cada uma e criar equipe nova. As trilhas já estão prontas no banco (`Trilha`, com 4 cadastradas no `seed.py`).
 

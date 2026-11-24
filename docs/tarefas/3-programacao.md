@@ -1,7 +1,7 @@
 # Parte 3 — Programação
 
 **Responsável:** _a preencher (uma pessoa)_
-**Branch:** `parte-3-programacao`
+**Branch:** `parte-3-programacao` (toda a parte é feita nesta branch, e só nela)
 
 No T1 a programação era uma tabela fixa no HTML, e ainda passava de 20:00 direto para 08:00 sem dizer que tinha virado o dia. Agora ela vem do banco, separada por dia, e a organização consegue editar pela área `/admin`.
 

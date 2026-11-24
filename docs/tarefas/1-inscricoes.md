@@ -1,7 +1,7 @@
 # Parte 1 — Inscrições
 
 **Responsável:** _a preencher (uma pessoa)_
-**Branch:** `parte-1-inscricoes`
+**Branch:** `parte-1-inscricoes` (toda a parte é feita nesta branch, e só nela)
 
 Hoje o botão "Inscreva-se" do T1 só abria um `mailto:`. A ideia é ter uma inscrição de verdade, salva no banco, em que a pessoa consegue depois consultar e cancelar usando um código.
 

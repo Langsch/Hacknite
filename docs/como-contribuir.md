@@ -68,6 +68,19 @@ A base é o exemplo do professor das aulas 7 a 9: <https://github.com/jviterbo/U
 
 ## Git
 
+**Uma branch por tarefa.** Cada parte tem a sua branch, com o nome que está no topo do arquivo da tarefa:
+
+| Parte | Branch |
+|---|---|
+| 1 — Inscrições | `parte-1-inscricoes` |
+| 2 — Equipes | `parte-2-equipes` |
+| 3 — Programação | `parte-3-programacao` |
+| 4 — Contato | `parte-4-contato` |
+
+- Ninguém faz commit direto na `main`. Tudo chega nela por Pull Request.
+- Cada um trabalha só na branch da sua parte. Não crie outra branch para a mesma tarefa, nem trabalhe na branch de outra pessoa.
+- Um PR por parte, da sua branch para a `main`.
+
 ```bash
 git checkout main
 git pull
