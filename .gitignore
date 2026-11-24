@@ -1,4 +1,21 @@
-.DS_Store
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Flask / dados locais
+instance/
+*.db
+logs/
+*.log
+
+# Segredos (usar .env.example como modelo)
+.env
+
+# Editores / SO
 .vscode/
 .idea/
+.DS_Store
+Thumbs.db
 *.zip
