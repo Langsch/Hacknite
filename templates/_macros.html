@@ -1,0 +1,50 @@
+{# Uso: {% from "_macros.html" import campo, breadcrumb %} #}
+
+{# campo do Flask-WTF com label, classe do Bootstrap e mensagens de erro #}
+{% macro campo(field, ajuda=None) %}
+  {% set erro = ' is-invalid' if field.errors else '' %}
+  {% if field.type == 'BooleanField' %}
+    <div class="form-check mb-3">
+      {{ field(class='form-check-input' ~ erro) }}
+      {{ field.label(class='form-check-label') }}
+      {% for e in field.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
+    </div>
+  {% else %}
+    <div class="mb-3">
+      {{ field.label(class='form-label fw-semibold') }}
+      {% if field.type == 'SelectField' %}
+        {{ field(class='form-select' ~ erro) }}
+      {% elif field.type == 'TextAreaField' %}
+        {{ field(class='form-control' ~ erro, rows=4) }}
+      {% else %}
+        {{ field(class='form-control' ~ erro) }}
+      {% endif %}
+      {% if ajuda %}<div class="form-text">{{ ajuda }}</div>{% endif %}
+      {% for e in field.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{# itens: lista de (rotulo, link); o ultimo e a pagina atual #}
+{% macro breadcrumb(itens) %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb small">
+      <li class="breadcrumb-item"><a href="{{ url_for('principal.index') }}">Home</a></li>
+      {% for rotulo, link in itens %}
+        {% if loop.last %}
+          <li class="breadcrumb-item active" aria-current="page">{{ rotulo }}</li>
+        {% else %}
+          <li class="breadcrumb-item"><a href="{{ link }}">{{ rotulo }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ol>
+  </nav>
+{% endmacro %}
+
+{# botao que faz POST (remover, cancelar...) ja com o token CSRF #}
+{% macro botao_post(acao, rotulo, classe='btn-outline-danger', confirmar=None) %}
+  <form class="d-inline" method="POST" action="{{ acao }}" {% if confirmar %}data-confirmar="{{ confirmar }}"{% endif %}>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button class="btn btn-sm {{ classe }}" type="submit">{{ rotulo }}</button>
+  </form>
+{% endmacro %}

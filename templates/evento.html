@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% from "_macros.html" import breadcrumb %}
+
+{% block titulo %}O Evento{% endblock %}
+{% block breadcrumb %}{{ breadcrumb([('Evento', None)]) }}{% endblock %}
+
+{% block conteudo %}
+  <h1 class="h3 fw-bold page-heading">Sobre o HackNite</h1>
+  <p class="lead">Um encontro de criatividade, tecnologia e colaboração promovido durante a Semana de Ciências da Computação da UFF.</p>
+
+  <section id="trilhas" class="mt-4">
+    <h2 class="h5 fw-bold">Trilhas</h2>
+    <div class="row g-3">
+      {% for t in trilhas %}
+        <div class="col-12 col-md-6">
+          <div class="card info-card h-100"><div class="card-body d-flex gap-3">
+            <i class="bi bi-{{ t.icone }} fs-2 text-primary"></i>
+            <div>
+              <h3 class="h6 fw-bold mb-1">{{ t.nome }}</h3>
+              <p class="mb-0">{{ t.descricao }}</p>
+            </div>
+          </div></div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <div class="row g-3 mt-2">
+    <section class="col-12 col-md-6" id="regras">
+      <div class="card info-card h-100"><div class="card-body">
+        <h2 class="h5 fw-bold">Desafios e regras</h2>
+        <p>Forme uma equipe, escolha um desafio e desenvolva uma ideia durante as 24 horas do evento. Os projetos devem ser apresentados ao final do hackathon.</p>
+        <a class="link-primary" href="{{ url_for('programacao.cronograma') }}">Ver programação</a>
+      </div></div>
+    </section>
+    <section class="col-12 col-md-6" id="patrocinadores">
+      <div class="card info-card h-100"><div class="card-body">
+        <h2 class="h5 fw-bold">Patrocinadores</h2>
+        <p>Em breve, informações sobre as organizações que apoiam esta edição do HackNite.</p>
+        <a class="link-primary" href="{{ url_for('contato.contato') }}">Quero patrocinar</a>
+      </div></div>
+    </section>
+    <section class="col-12" id="premiacao">
+      <div class="card info-card"><div class="card-body">
+        <h2 class="h5 fw-bold">Premiação</h2>
+        <p class="mb-0">Os projetos serão apresentados para avaliação. Detalhes da premiação serão divulgados em breve.</p>
+      </div></div>
+    </section>
+  </div>
+{% endblock %}

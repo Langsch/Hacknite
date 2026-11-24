@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% from "_macros.html" import breadcrumb, botao_post %}
+
+{% block titulo %}Organização{% endblock %}
+{% block breadcrumb %}{{ breadcrumb([('Organização', None)]) }}{% endblock %}
+
+{% block conteudo %}
+  <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 page-heading">
+    <h1 class="h3 fw-bold mb-0">Área da organização</h1>
+    {{ botao_post(url_for('admin.logout'), 'Sair', 'btn-outline-secondary') }}
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <article class="card info-card h-100"><div class="card-body">
+        <i class="bi bi-calendar-event fs-3 text-primary"></i>
+        <h2 class="h6 fw-bold mt-2">Programação</h2>
+        <p class="card-text">Adicionar, editar e remover atividades do cronograma.</p>
+        <a class="stretched-link" href="{{ url_for('programacao.admin_lista') }}" aria-label="Editar programação"></a>
+      </div></article>
+    </div>
+    <div class="col-12 col-md-6">
+      <article class="card info-card h-100"><div class="card-body">
+        <i class="bi bi-envelope fs-3 text-primary"></i>
+        <h2 class="h6 fw-bold mt-2">Mensagens</h2>
+        <p class="card-text">Mensagens enviadas pela página de contato.</p>
+        <a class="stretched-link" href="{{ url_for('contato.admin_mensagens') }}" aria-label="Ver mensagens"></a>
+      </div></article>
+    </div>
+  </div>
+{% endblock %}

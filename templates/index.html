@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb"><ol class="breadcrumb small"><li class="breadcrumb-item">Home</li></ol></nav>
+{% endblock %}
+
+{% block conteudo %}
+  <section class="hero-panel text-center mb-4">
+    <p class="eyebrow mb-2">HACKATHON • UFF • 11 E 12 DE DEZEMBRO</p>
+    <h1 class="h2 fw-bold">HackNite 2026 — 24 horas de código, café e ideias</h1>
+    <p class="hero-copy mx-auto mb-4">Uma noite para aprender, colaborar e criar soluções com tecnologia.</p>
+    <a class="btn btn-primary" href="{{ url_for('inscricoes.inscricao') }}">Inscreva-se agora</a>
+  </section>
+
+  <section class="row g-3 mb-4 text-center" aria-label="Números do evento">
+    <div class="col-4"><div class="numero"><strong>{{ numeros.inscritos }}</strong><span>inscritos</span></div></div>
+    <div class="col-4"><div class="numero"><strong>{{ numeros.equipes }}</strong><span>equipes</span></div></div>
+    <div class="col-4"><div class="numero"><strong>{{ numeros.trilhas }}</strong><span>trilhas</span></div></div>
+  </section>
+
+  <section class="row g-3 mb-4" aria-label="Sobre o evento">
+    <div class="col-12 col-md-4">
+      <article class="card info-card h-100"><div class="card-body">
+        <div class="icon-box mb-3"><i class="bi bi-lightbulb fs-3"></i></div>
+        <h2 class="h6 fw-bold">Sobre o Evento</h2>
+        <p class="card-text">Uma experiência de 24 horas para transformar ideias em projetos.</p>
+        <a href="{{ url_for('principal.evento') }}" class="stretched-link" aria-label="Saiba mais sobre o evento"></a>
+      </div></article>
+    </div>
+    <div class="col-12 col-md-4">
+      <article class="card info-card h-100"><div class="card-body">
+        <div class="icon-box mb-3"><i class="bi bi-calendar-event fs-3"></i></div>
+        <h2 class="h6 fw-bold">Programação</h2>
+        <p class="card-text">Do credenciamento à premiação, veja o que acontece em cada horário.</p>
+        <a href="{{ url_for('programacao.cronograma') }}" class="stretched-link" aria-label="Ver a programação"></a>
+      </div></article>
+    </div>
+    <div class="col-12 col-md-4">
+      <article class="card info-card h-100"><div class="card-body">
+        <div class="icon-box mb-3"><i class="bi bi-people fs-3"></i></div>
+        <h2 class="h6 fw-bold">Equipes</h2>
+        <p class="card-text">Monte sua equipe ou encontre uma com vaga para participar.</p>
+        <a href="{{ url_for('equipes.lista') }}" class="stretched-link" aria-label="Ver as equipes"></a>
+      </div></article>
+    </div>
+  </section>
+
+  <h2 class="h4 fw-bold page-heading">Trilhas &amp; Desafios</h2>
+  <section class="row g-3">
+    {% for t in trilhas %}
+      <div class="col-12 col-sm-6 col-lg-3">
+        <article class="card info-card h-100"><div class="card-body">
+          <i class="bi bi-{{ t.icone }} fs-3 text-primary"></i>
+          <h3 class="h6 fw-bold mt-2">{{ t.nome }}</h3>
+          <p class="card-text small">{{ t.descricao }}</p>
+        </div></article>
+      </div>
+    {% endfor %}
+  </section>
+{% endblock %}

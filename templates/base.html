@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% set bp = request.blueprint or '' %}
+{% set ep = request.endpoint or '' %}
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="HackNite 2026: 24 horas de código, café e ideias.">
+  <title>{% block titulo %}{% endblock %}{% if self.titulo() %} | {% endif %}HackNite 2026</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-white border-bottom site-nav">
+      <div class="container-fluid px-3 px-lg-4">
+        <a class="navbar-brand fw-bold" href="{{ url_for('principal.index') }}">HackNite 2026</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Abrir menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavigation">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item"><a class="nav-link {{ 'active' if ep == 'principal.index' }}" href="{{ url_for('principal.index') }}">Home</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle {{ 'active' if ep == 'principal.evento' or bp in ['equipes', 'programacao'] }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Evento</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ url_for('principal.evento') }}">Sobre o evento</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('programacao.cronograma') }}">Programação</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('equipes.lista') }}">Equipes</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ url_for('principal.evento') }}#regras">Regras</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('principal.evento') }}#patrocinadores">Patrocinadores</a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link {{ 'active' if bp == 'inscricoes' }}" href="{{ url_for('inscricoes.inscricao') }}">Inscrição</a></li>
+            <li class="nav-item"><a class="nav-link {{ 'active' if ep == 'contato.contato' }}" href="{{ url_for('contato.contato') }}">Contato</a></li>
+            {% if admin_logado %}
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.painel') }}"><i class="bi bi-shield-lock"></i> Organização</a></li>
+            {% endif %}
+            <li class="nav-item ms-lg-3"><a class="btn btn-primary btn-sm px-3" href="{{ url_for('inscricoes.inscricao') }}">Inscreva-se</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container-fluid px-3 px-lg-4 py-4">
+    {% block breadcrumb %}{% endblock %}
+
+    {% for tipo, mensagem in get_flashed_messages(with_categories=true) %}
+      <div class="alert alert-{{ tipo }} alert-dismissible fade show" role="alert">
+        {{ mensagem }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+      </div>
+    {% endfor %}
+
+    {% block conteudo %}{% endblock %}
+  </main>
+
+  <footer class="site-footer mt-auto">
+    <p class="mb-1">© {{ ano }} HackNite — <a href="mailto:contato@hacknite.dev">contato@hacknite.dev</a></p>
+    <nav aria-label="Navegação do rodapé">
+      <a href="{{ url_for('principal.index') }}">Home</a>
+      <a href="{{ url_for('principal.evento') }}">Evento</a>
+      <a href="{{ url_for('inscricoes.inscricao') }}">Inscrição</a>
+      <a href="{{ url_for('contato.contato') }}">Contato</a>
+      <a href="{{ url_for('admin.painel') }}">Organização</a>
+    </nav>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
