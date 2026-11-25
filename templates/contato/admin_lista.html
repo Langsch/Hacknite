@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% from "_macros.html" import breadcrumb, botao_post %}
+
+{% block titulo %}Mensagens recebidas{% endblock %}
+{% block breadcrumb %}
+  {{ breadcrumb([('Organização', url_for('admin.painel')),
+                 ('Mensagens', None)]) }}
+{% endblock %}
+
+{% block conteudo %}
+  <h1 class="h3 fw-bold page-heading">Mensagens recebidas</h1>
+  {% set assuntos = {
+    'duvida': 'Dúvida sobre o evento',
+    'inscricao': 'Dúvida sobre inscrição',
+    'patrocinio': 'Quero patrocinar',
+    'outro': 'Outro assunto'
+  } %}
+
+  {% if mensagens %}
+    <div class="d-flex flex-column gap-3">
+      {% for mensagem in mensagens %}
+        <article class="card info-card">
+          <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-between gap-2">
+              <div>
+                <h2 class="h5 fw-bold mb-1">
+                  {{ assuntos.get(mensagem.assunto, mensagem.assunto) }}
+                  {% if not mensagem.lida %}
+                    <span class="badge text-bg-primary">Nova</span>
+                  {% endif %}
+                </h2>
+                <p class="text-muted small mb-2">
+                  {{ mensagem.enviada_em|data_hora_br }}
+                </p>
+              </div>
+              <div class="d-flex flex-wrap align-items-start gap-2">
+                {{ botao_post(
+                    url_for('contato.alternar_lida', id=mensagem.id),
+                    'Marcar como lida' if not mensagem.lida else 'Marcar como não lida',
+                    'btn-outline-primary') }}
+                {{ botao_post(
+                    url_for('contato.remover', id=mensagem.id),
+                    'Remover',
+                    confirmar='Tem certeza que deseja remover esta mensagem?') }}
+              </div>
+            </div>
+            <p class="mb-1"><strong>{{ mensagem.nome }}</strong> ·
+              <a href="mailto:{{ mensagem.email }}">{{ mensagem.email }}</a>
+            </p>
+            <p class="mb-0 text-break" style="white-space: pre-line">{{ mensagem.texto }}</p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-muted">Nenhuma mensagem recebida.</p>
+  {% endif %}
+{% endblock %}

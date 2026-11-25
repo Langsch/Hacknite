@@ -14,7 +14,7 @@ Site do hackathon HackNite 2026 (UFF), feito em Flask. Trabalho 2 da disciplina 
 | Ananias | Inscrições |
 | _a preencher_ | Equipes |
 | VictorCCruz1 | Programação |
-| _a preencher_ | Contato e guia do usuário |
+| CreatorJota - João Victor de Oliveira Costa | Contato e guia do usuário |
 
 Descrição de cada parte em [`docs/tarefas/`](docs/tarefas/).
 
