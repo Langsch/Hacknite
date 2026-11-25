@@ -11,7 +11,7 @@ Site do hackathon HackNite 2026 (UFF), feito em Flask. Trabalho 2 da disciplina 
 | Integrante | Parte |
 |---|---|
 | Langsch | Infraestrutura (estrutura do projeto, layout base, configuração, log, área da organização), revisão e deploy |
-| _a preencher_ | Inscrições |
+| Ananias | Inscrições |
 | _a preencher_ | Equipes |
 | VictorCCruz1 | Programação |
 | _a preencher_ | Contato e guia do usuário |
