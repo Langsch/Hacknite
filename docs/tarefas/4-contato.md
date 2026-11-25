@@ -1,6 +1,6 @@
 # Parte 4 — Contato e guia do usuário
 
-**Responsável:** _a preencher (uma pessoa)_
+**Responsável:** CreatorJota - João Victor de Oliveira Costa
 **Branch:** `parte-4-contato` (toda a parte é feita nesta branch, e só nela)
 
 No T1 a página de contato era só um `mailto:`. Agora vira um formulário que salva a mensagem no banco, e a organização lê as mensagens na área `/admin`. Essa parte também escreve o **guia do usuário** do README, que é item obrigatório da entrega.
