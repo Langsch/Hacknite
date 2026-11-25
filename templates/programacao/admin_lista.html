@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% from "_macros.html" import breadcrumb, botao_post %}
+
+{% block titulo %}Editar programação{% endblock %}
+{% block breadcrumb %}{{ breadcrumb([('Organização', url_for('admin.painel')), ('Programação', None)]) }}{% endblock %}
+
+{% block conteudo %}
+  <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 page-heading">
+    <h1 class="h3 fw-bold mb-0">Editar programação</h1>
+    <a class="btn btn-primary" href="{{ url_for('programacao.nova') }}">Nova atividade</a>
+  </div>
+
+  {% if atividades %}
+    <div class="table-responsive schedule-wrap">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th scope="col">Dia</th>
+            <th scope="col">Horário</th>
+            <th scope="col">Atividade</th>
+            <th scope="col">Local</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for atividade in atividades %}
+            <tr>
+              <td class="text-nowrap">{{ atividade.dia.strftime('%d/%m/%Y') }}</td>
+              <td class="text-nowrap">{{ atividade.horario.strftime('%H:%M') }}</td>
+              <td>{{ atividade.titulo }}</td>
+              <td>{{ atividade.local }}</td>
+              <td class="text-nowrap">
+                <a class="btn btn-sm btn-outline-primary"
+                   href="{{ url_for('programacao.editar', id=atividade.id) }}">Editar</a>
+                {{ botao_post(url_for('programacao.remover', id=atividade.id),
+                              'Remover', confirmar='Tem certeza que deseja remover esta atividade?') }}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted">Nenhuma atividade cadastrada.</p>
+  {% endif %}
+{% endblock %}

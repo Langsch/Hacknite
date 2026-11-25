@@ -1,6 +1,8 @@
 """Dados de exemplo. So insere quando a tabela esta vazia."""
+from datetime import date, time
+
 from extensions import db
-from models import Equipe, Participante, Trilha
+from models import Atividade, Equipe, Participante, Trilha
 
 
 def popula_trilhas():
@@ -47,9 +49,25 @@ def popula_participantes():
 
 
 def popula_atividades():
-    # TODO (parte 3): cadastrar a programacao do T1 (trabalho1/programacao.html),
-    #                 separando sexta 11/12 e sabado 12/12
-    pass
+    if Atividade.query.count() > 0:
+        return
+    sexta = date(2026, 12, 11)
+    sabado = date(2026, 12, 12)
+    db.session.add_all([
+        Atividade(dia=sexta, horario=time(18), titulo="Credenciamento e recepção",
+                  local="Entrada principal"),
+        Atividade(dia=sexta, horario=time(19),
+                  titulo="Abertura e apresentação dos desafios", local="Auditório"),
+        Atividade(dia=sexta, horario=time(20),
+                  titulo="Formação das equipes e início do hackathon",
+                  local="Espaço de inovação"),
+        Atividade(dia=sabado, horario=time(8),
+                  titulo="Mentorias e desenvolvimento dos projetos",
+                  local="Espaço de inovação"),
+        Atividade(dia=sabado, horario=time(17),
+                  titulo="Apresentações, avaliação e premiação", local="Auditório"),
+    ])
+    db.session.commit()
 
 
 def popula_banco():

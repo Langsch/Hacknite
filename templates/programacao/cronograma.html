@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% from "_macros.html" import breadcrumb %}
+
+{% block titulo %}Programação{% endblock %}
+{% block breadcrumb %}{{ breadcrumb([('Evento', url_for('principal.evento')), ('Programação', None)]) }}{% endblock %}
+
+{% block conteudo %}
+  <h1 class="h3 fw-bold page-heading">Programação do Hackathon</h1>
+  {% if dias %}
+    {% for dia, atividades in dias %}
+      <h2 class="h5 fw-bold mt-4">{{ dia|dia_semana }}, {{ dia.strftime('%d/%m') }}</h2>
+      <div class="table-responsive schedule-wrap">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col">Horário</th>
+              <th scope="col">Atividade</th>
+              <th scope="col">Local</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for atividade in atividades %}
+              <tr>
+                <td class="text-nowrap">{{ atividade.horario.strftime('%H:%M') }}</td>
+                <td>
+                  <div class="fw-semibold">{{ atividade.titulo }}</div>
+                  {% if atividade.descricao %}<div class="small text-muted">{{ atividade.descricao }}</div>{% endif %}
+                </td>
+                <td>{{ atividade.local }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-muted">A programação ainda não foi divulgada.</p>
+  {% endif %}
+{% endblock %}
