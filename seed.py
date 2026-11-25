@@ -41,9 +41,15 @@ def popula_participantes():
     bytes_bv = Equipe.query.filter_by(nome="Bytes da Boa Viagem").first()
     monitores = Equipe.query.filter_by(nome="Monitores Noturnos").first()
     db.session.add_all([
-        Participante(nome="Ana Exemplo", email="ana@example.com", equipe=bytes_bv),
-        Participante(nome="Bruno Exemplo", email="bruno@example.com", equipe=bytes_bv),
-        Participante(nome="Carla Exemplo", email="carla@example.com", equipe=monitores),
+        Participante(nome="Ana Exemplo", email="ana@example.com",
+                     curso="Ciência da Computação", instituicao="UFF",
+                     nivel="iniciante", equipe=bytes_bv),
+        Participante(nome="Bruno Exemplo", email="bruno@example.com",
+                     curso="Sistemas de Informação", instituicao="UFF",
+                     nivel="intermediario", equipe=bytes_bv),
+        Participante(nome="Carla Exemplo", email="carla@example.com",
+                     curso="Engenharia de Computação", instituicao="UFF",
+                     nivel="avancado", equipe=monitores),
     ])
     db.session.commit()
 

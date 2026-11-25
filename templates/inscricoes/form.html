@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% from "_macros.html" import breadcrumb, campo %}
+
+{% block titulo %}Inscrição{% endblock %}
+{% block breadcrumb %}{{ breadcrumb([('Inscrição', None)]) }}{% endblock %}
+
+{% block conteudo %}
+  <div class="row g-3">
+    <section class="col-12 col-lg-8">
+      <div class="content-panel">
+        <h1 class="h3 fw-bold page-heading">Inscreva-se no HackNite</h1>
+        <p>Preencha seus dados para participar do evento.</p>
+        <form method="POST" novalidate>
+          {{ form.hidden_tag() }}
+          <div class="row">
+            <div class="col-12 col-md-6">{{ campo(form.nome) }}</div>
+            <div class="col-12 col-md-6">{{ campo(form.email) }}</div>
+            <div class="col-12 col-md-6">{{ campo(form.curso) }}</div>
+            <div class="col-12 col-md-6">{{ campo(form.instituicao) }}</div>
+          </div>
+          {{ campo(form.nivel) }}
+          {{ campo(form.equipe_id, ajuda='Você também pode participar sem uma equipe.') }}
+          {{ campo(form.aceite) }}
+          {{ form.enviar(class='btn btn-primary') }}
+        </form>
+      </div>
+    </section>
+
+    <aside class="col-12 col-lg-4">
+      <article class="card info-card h-100">
+        <div class="card-body">
+          <h2 class="h5 fw-bold">Já se inscreveu?</h2>
+          <p class="card-text mb-3">Consulte sua inscrição usando o código recebido após confirmar.</p>
+          <form method="GET" action="{{ url_for('inscricoes.consulta') }}">
+            <div class="mb-3">
+              <label class="form-label fw-semibold" for="codigo">Código da inscrição</label>
+              <input class="form-control" id="codigo" name="codigo" type="text"
+                     maxlength="10" autocomplete="off" required>
+            </div>
+            <button class="btn btn-outline-primary" type="submit">Consultar inscrição</button>
+          </form>
+        </div>
+      </article>
+    </aside>
+  </div>
+{% endblock %}

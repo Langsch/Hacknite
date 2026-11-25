@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% from "_macros.html" import breadcrumb, botao_post %}
+
+{% block titulo %}Minha inscrição{% endblock %}
+{% block breadcrumb %}{{ breadcrumb([('Inscrição', url_for('inscricoes.inscricao')),
+                                      ('Minha inscrição', None)]) }}{% endblock %}
+
+{% block conteudo %}
+  <div class="content-panel mx-auto">
+    <h1 class="h3 fw-bold page-heading">Inscrição confirmada</h1>
+    <p>Guarde este código para consultar ou cancelar sua inscrição:</p>
+    <p class="h2 fw-bold text-primary text-break" aria-label="Código da inscrição">
+      {{ participante.codigo }}
+    </p>
+
+    <dl class="row">
+      <dt class="col-sm-4">Nome</dt>
+      <dd class="col-sm-8">{{ participante.nome }}</dd>
+      <dt class="col-sm-4">E-mail</dt>
+      <dd class="col-sm-8">{{ participante.email }}</dd>
+      <dt class="col-sm-4">Curso</dt>
+      <dd class="col-sm-8">{{ participante.curso }}</dd>
+      <dt class="col-sm-4">Instituição</dt>
+      <dd class="col-sm-8">{{ participante.instituicao }}</dd>
+      <dt class="col-sm-4">Nível</dt>
+      <dd class="col-sm-8">{{ participante.nivel|replace('_', ' ')|capitalize }}</dd>
+      <dt class="col-sm-4">Inscrito em</dt>
+      <dd class="col-sm-8">{{ participante.inscrito_em|data_hora_br }}</dd>
+      {% if participante.equipe %}
+        <dt class="col-sm-4">Equipe</dt>
+        <dd class="col-sm-8">
+          <a href="{{ url_for('equipes.detalhe', id=participante.equipe.id) }}">
+            {{ participante.equipe.nome }}
+          </a>
+        </dd>
+      {% endif %}
+    </dl>
+
+    <div class="d-flex flex-wrap gap-2">
+      {{ botao_post(
+        url_for('inscricoes.cancelar', codigo=participante.codigo),
+        'Cancelar inscrição',
+        confirmar='Tem certeza de que deseja cancelar sua inscrição?'
+      ) }}
+      <a class="btn btn-outline-secondary" href="{{ url_for('principal.index') }}">Voltar ao início</a>
+    </div>
+  </div>
+{% endblock %}
