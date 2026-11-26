@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% from "_macros.html" import breadcrumb %}
+
+{% block titulo %}{{ equipe.nome }}{% endblock %}
+
+{% block breadcrumb %}
+  {{ breadcrumb([
+    ('Evento', url_for('principal.evento')),
+    ('Equipes', url_for('equipes.lista')),
+    (equipe.nome, None)
+  ]) }}
+{% endblock %}
+
+{% block conteudo %}
+  <div class="content-panel mx-auto">
+    <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 page-heading">
+      <div>
+        <p class="eyebrow mb-1">Equipe</p>
+        <h1 class="h3 fw-bold mb-2">{{ equipe.nome }}</h1>
+        <p class="mb-0">
+          <strong>Trilha:</strong> {{ equipe.trilha.nome }}
+        </p>
+      </div>
+
+      {% if equipe.lotada %}
+        <span class="badge text-bg-secondary">Completa</span>
+      {% else %}
+        <span class="badge text-bg-primary">
+          {{ equipe.vagas }}
+          {{ 'vaga disponível' if equipe.vagas == 1 else 'vagas disponíveis' }}
+        </span>
+      {% endif %}
+    </div>
+
+    <section class="mb-4" aria-labelledby="descricao-equipe">
+      <h2 id="descricao-equipe" class="h5 fw-bold">Sobre a equipe</h2>
+
+      {% if equipe.descricao %}
+        <p>{{ equipe.descricao }}</p>
+      {% else %}
+        <p class="text-muted">Esta equipe ainda não adicionou uma descrição.</p>
+      {% endif %}
+    </section>
+
+    <section class="mb-4" aria-labelledby="integrantes-equipe">
+      <h2 id="integrantes-equipe" class="h5 fw-bold">Integrantes</h2>
+
+      {% if equipe.participantes %}
+        <ul class="list-group">
+          {% for participante in equipe.participantes %}
+            <li class="list-group-item">
+              <strong>{{ participante.primeiro_nome }}</strong>
+              <span class="text-muted">— {{ participante.curso }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-muted">Esta equipe ainda não tem integrantes.</p>
+      {% endif %}
+    </section>
+
+    <div class="d-flex flex-wrap gap-2">
+      {% if not equipe.lotada %}
+        <a
+          class="btn btn-primary"
+          href="{{ url_for('inscricoes.inscricao', equipe=equipe.id) }}"
+        >
+          Entrar nesta equipe
+        </a>
+      {% endif %}
+
+      <a
+        class="btn btn-outline-secondary"
+        href="{{ url_for('equipes.lista') }}"
+      >
+        Voltar às equipes
+      </a>
+    </div>
+  </div>
+{% endblock %}
