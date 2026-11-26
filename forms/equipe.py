@@ -1,5 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField
+from wtforms import SelectField, StringField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired, Length, Optional, ValidationError
+
+from extensions import db
+from models import Equipe
 
 
 class EquipeForm(FlaskForm):
