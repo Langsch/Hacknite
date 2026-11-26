@@ -22,14 +22,13 @@ def popula_trilhas():
 
 
 def popula_equipes():
-    # TODO (parte 2): completar com descricao quando o campo existir
     if Equipe.query.count() > 0:
         return
     mobilidade = Trilha.query.filter_by(nome="Mobilidade Urbana").first()
     educacao = Trilha.query.filter_by(nome="Educação").first()
     db.session.add_all([
-        Equipe(nome="Bytes da Boa Viagem", trilha=mobilidade),
-        Equipe(nome="Monitores Noturnos", trilha=educacao),
+        Equipe(nome="Bytes da Boa Viagem", trilha=mobilidade, descricao="Solução para melhor mobilidade urbana."),
+        Equipe(nome="Monitores Noturnos", trilha=educacao, descricao="Ferramenta para estudantes e professores."),
     ])
     db.session.commit()
 

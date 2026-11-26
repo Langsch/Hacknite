@@ -1,4 +1,8 @@
 from extensions import db
+from datetime import datetime
+
+
+MAX_MEMBROS = 5
 
 
 class Trilha(db.Model):
@@ -20,13 +24,25 @@ class Equipe(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(60), nullable=False, unique=True)
+    descricao = db.Column(db.String(280), nullable=False, default="")
+    criada_em = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     trilha_id = db.Column(db.Integer, db.ForeignKey("trilha.id"), nullable=False)
     trilha = db.relationship("Trilha", back_populates="equipes")
 
     participantes = db.relationship("Participante", back_populates="equipe")
 
-    # TODO (parte 2): campos descricao e criada_em, limite de membros (vagas / lotada)
+    @property
+    def total_membros(self):
+        return len(self.participantes)
+
+    @property
+    def vagas(self):
+        return max(0, MAX_MEMBROS - self.total_membros)
+
+    @property
+    def lotada(self):
+        return self.vagas == 0
 
     def __repr__(self):
         return f"<Equipe {self.nome}>"
