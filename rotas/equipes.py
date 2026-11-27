@@ -60,7 +60,7 @@ def nova():
         equipe = Equipe(
             nome=form.nome.data.strip(),
             trilha_id=form.trilha_id.data,
-            descricao=form.descricao.data.strip(),
+            descricao=(form.descricao.data or "").strip(),
         )
 
         db.session.add(equipe)
