@@ -6,9 +6,9 @@ Cada parte tem **um único responsável**. Escreva o seu nome em uma linha só e
 |---|---|---|---|
 | 0 — Infraestrutura, revisão e deploy | — | `main` | Langsch |
 | 1 — Inscrições | [1-inscricoes.md](1-inscricoes.md) | `parte-1-inscricoes` | Ananias |
-| 2 — Equipes | [2-equipes.md](2-equipes.md) | `parte-2-equipes` | _a preencher_ |
+| 2 — Equipes | [2-equipes.md](2-equipes.md) | `parte-2-equipes` | João Vitor |
 | 3 — Programação | [3-programacao.md](3-programacao.md) | `parte-3-programacao` | VictorCCruz1 |
-| 4 — Contato e guia do usuário | [4-contato.md](4-contato.md) | `parte-4-contato` | _a preencher_ |
+| 4 — Contato e guia do usuário | [4-contato.md](4-contato.md) | `parte-4-contato` | CreatorJota - João Victor de Oliveira Costa |
 
 **Uma branch por tarefa:** cada parte é feita só na sua branch e entra na `main` por um único Pull Request. Ninguém faz commit direto na `main`.
 
