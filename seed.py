@@ -34,7 +34,6 @@ def popula_equipes():
 
 
 def popula_participantes():
-    # TODO (parte 1): completar com os campos novos (curso, instituicao, nivel...)
     if Participante.query.count() > 0:
         return
     bytes_bv = Equipe.query.filter_by(nome="Bytes da Boa Viagem").first()

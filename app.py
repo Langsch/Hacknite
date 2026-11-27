@@ -4,6 +4,7 @@ from datetime import datetime
 from logging.handlers import RotatingFileHandler
 
 from flask import Flask, render_template, request, session
+from sqlalchemy.exc import OperationalError
 
 from config import Config
 from extensions import csrf, db
@@ -82,7 +83,14 @@ def reset_db():
 
 with app.app_context():
     db.create_all()   # cria as tabelas que ainda nao existem
-    popula_banco()
+    try:
+        popula_banco()
+    except OperationalError:
+        # banco criado antes de uma mudanca nos models (coluna nova, por exemplo).
+        # Nao derruba o app aqui, senao nem o "flask reset-db" consegue rodar.
+        db.session.rollback()
+        app.logger.error("Banco desatualizado em relacao aos models. "
+                         "Rode: flask --app app reset-db")
     if not app.config["ADMIN_PASSWORD"]:
         app.logger.warning("ADMIN_PASSWORD vazio no .env: area /admin desativada")
 
